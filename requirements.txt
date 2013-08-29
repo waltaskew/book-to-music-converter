@@ -1,0 +1,4 @@
+nltk
+# not really requirements, but yeah
+ipython
+pylint
