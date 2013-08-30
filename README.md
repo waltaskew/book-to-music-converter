@@ -1,4 +1,4 @@
 book-to-music-converter
 =======================
 
-Convert Books into Music For No Discernible Reason!
+Convert books into music for no discernible reason!
