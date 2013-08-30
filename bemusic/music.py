@@ -55,12 +55,12 @@ def most_popular_shift(shift_freqs):
     return most_freq[-1]
 
 
-def next_shift(shift_freqs, prev_shift, default_shift):
+def next_shift(shift_freqs, prev_shift):
     """Take a path down our choice tree."""
     try:
         choices = shift_freqs[prev_shift]
-    except IndexError:
-        return default_shift
+    except KeyError:
+        return random.choice(shift_freqs.keys())
 
     total_counts = sum(choices.itervalues())
 
