@@ -101,19 +101,19 @@ def to_music(shift_freqs, file_name, length=100):
     music_file.addTempo(0, 0, 120)
 
     note = Note('C', 3)
-    music_file.addNote(0, 0, note.midi_pitch(), 0, 1, 100)
+    music_file.addNote(0, 0, note.midi_pitch(), 0, 1, 127)
 
     next_shifts = random.choice(shift_freqs.keys())
     beat = 1
     while beat < length:
         for shift in next_shifts:
             note = note + shift
-            music_file.addNote(0, 0, note.midi_pitch(), beat, 1, 100)
+            music_file.addNote(0, 0, note.midi_pitch(), beat, 1, 127)
             beat += 1
         next_shifts  = next_shift(shift_freqs, next_shifts)
 
     note = Note('C', 3)
-    music_file.addNote(0, 0, note.midi_pitch(), beat, 1, 100)
+    music_file.addNote(0, 0, note.midi_pitch(), beat, 1, 127)
 
     with open(file_name + '.midi', 'wb') as out_file:
         music_file.writeFile(out_file)
