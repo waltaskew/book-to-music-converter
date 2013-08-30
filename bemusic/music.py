@@ -10,6 +10,9 @@ NOTE_COUNT = len(NOTES)
 # This is for octave 1
 MIDI_MAP = {'C': 24, 'D': 26, 'E': 28, 'F': 29, 'G': 31, 'A': 33, 'B': 35}
 
+MAX_OCTAVE = 7
+MIN_OCTAVE = 1
+
 
 class Note(object):
     """Cute class to let us do math with notes."""
@@ -27,6 +30,8 @@ class Note(object):
         note_number = self.note_number + steps
         if note_number >= NOTE_COUNT or note_number < 0:
             octave = self.octave + (note_number // NOTE_COUNT)
+            octave = min(octave, MAX_OCTAVE)
+            octave = max(octave, MIN_OCTAVE)
             note_number = note_number % NOTE_COUNT
         else:
             octave = self.octave
@@ -37,8 +42,6 @@ class Note(object):
         """Return the midi pitch number for this note."""
         octave_1_num = MIDI_MAP[self.pitch]
         number = octave_1_num + self.octave * 12
-        while number > 127:
-            number = number - 12
         return number
 
     def __sub__(self, steps):
