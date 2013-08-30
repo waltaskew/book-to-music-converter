@@ -93,7 +93,7 @@ def next_shift(shift_freqs, prev_shift):
     return choice
 
 
-def to_music(shift_freqs, file_name, length=30):
+def to_music(shift_freqs, file_name, length=100):
     """Follow our shift probabilities into a midi file."""
     music_file = MidiFile.MIDIFile(1)
 
@@ -111,6 +111,9 @@ def to_music(shift_freqs, file_name, length=30):
             music_file.addNote(0, 0, note.midi_pitch(), beat, 1, 100)
             beat += 1
         next_shifts  = next_shift(shift_freqs, next_shifts)
+
+    note = Note('C', 3)
+    music_file.addNote(0, 0, note.midi_pitch(), beat, 1, 100)
 
     with open(file_name + '.midi', 'wb') as out_file:
         music_file.writeFile(out_file)
