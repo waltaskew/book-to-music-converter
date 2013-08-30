@@ -1,0 +1,28 @@
+#! /usr/bin/env python
+
+
+"""Make music for the give file path."""
+
+
+import os.path
+import sys
+
+import parse
+import words
+import features
+import music
+
+
+def main(file_name):
+    """Make music for the give file path."""
+    name, _ = os.path.splitext(os.path.basename(file_name))
+    with open(file_name) as text_file:
+        text = text_file.read()
+    text = parse.parse_guttenburg(text)
+
+    shift_counts = features.build_shift_map(words.iter_nouns(text), 2)
+    music.to_music(shift_counts, name)
+
+
+if __name__ == '__main__':
+    main(sys.argv[1])
