@@ -2,10 +2,13 @@
 
 
 import random
+import midiutil.MidiFile as MidiFile
 
 
 NOTES = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 NOTE_COUNT = len(NOTES)
+# This is for octave 1
+MIDI_MAP = {'C': 24, 'D': 26, 'E': 28, 'F': 29, 'G': 31, 'A': 33, 'B': 35}
 
 
 class Note(object):
@@ -29,6 +32,14 @@ class Note(object):
             octave = self.octave
 
         return Note(NOTES[note_number], octave, note_number=note_number)
+
+    def midi_pitch(self):
+        """Return the midi pitch number for this note."""
+        octave_1_num = MIDI_MAP[self.pitch]
+        number = octave_1_num + self.octave * 12
+        while number > 127:
+            number = number - 12
+        return number
 
     def __sub__(self, steps):
         return self + -steps
@@ -77,3 +88,26 @@ def next_shift(shift_freqs, prev_shift):
             return choice
     # this shouldn't happen
     return choice
+
+
+def to_music(shift_freqs, file_name, length=30):
+    """Follow our shift probabilities into a midi file."""
+    music_file = MidiFile.MIDIFile(1)
+
+    music_file.addTrackName(0, 0, file_name)
+    music_file.addTempo(0, 0, 120)
+
+    note = Note('C', 3)
+    music_file.addNote(0, 0, note.midi_pitch(), 0, 1, 100)
+
+    next_shifts = random.choice(shift_freqs.keys())
+    beat = 1
+    while beat < length:
+        for shift in next_shifts:
+            note = note + shift
+            music_file.addNote(0, 0, note.midi_pitch(), beat, 1, 100)
+            beat += 1
+        next_shifts  = next_shift(shift_freqs, next_shifts)
+
+    with open(file_name + '.midi', 'wb') as out_file:
+        music_file.writeFile(out_file)
