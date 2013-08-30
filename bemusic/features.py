@@ -4,10 +4,10 @@
 import itertools
 
 
-SHIFT_SEGMENTS = 1.0 / 18.0
 SHIFT_MAP = {
         0: 0, 1: 0, 2: 1, 3: -1, 4: 2, 5: -2, 6: 3, 7: -3, 8: 4, 9: -4,
         10: 5, 11: -5, 12: 6, 13: -6, 14: 7, 15: -7, 16: 8, 17: -8}
+SHIFT_SEGMENTS = 1.0 / (len(SHIFT_MAP) - 1)
 
 
 def iter_n_grams(text, n):
