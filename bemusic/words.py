@@ -19,7 +19,7 @@ def iter_nouns(text):
     for sentence in tokenize.sent_tokenize(text):
         for tagged_word in nltk.pos_tag(tokenize.word_tokenize(sentence)):
             word, pos = tagged_word
-            if pos == NOUN_TAG and tagged_word[0] not in STOP_WORDS:
+            if pos.startswith(NOUN_TAG) and word not in STOP_WORDS:
                 synset = get_synset(word)
                 if synset is not None:
                     yield synset
