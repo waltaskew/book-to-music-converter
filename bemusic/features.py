@@ -53,3 +53,22 @@ def iter_pitch_shifts(text, n, shift_func=difference_as_pitch_shift):
         yield shifts
         prev_shifts = shifts
         prev_n_gram = n_gram
+
+
+def record_shifts(shifts, prev_shift, cur_shift):
+    """Add the sequence of pitch shifts to our history."""
+    shift_map = shifts.setdefault(prev_shift, {})
+    try:
+        shift_map[cur_shift] += 1
+    except IndexError:
+        shift_map[cur_shift] = 1
+
+
+def build_shift_map(text, n):
+    """Build a dictionary counting the relative occurrence of
+    pitch shifts.
+    """
+    shifts = {}
+    for prev_shift, cur_shift in iter_pairs(iter_pitch_shifts(text, n)):
+        record_shifts(shifts, prev_shift, cur_shift)
+    return shifts
