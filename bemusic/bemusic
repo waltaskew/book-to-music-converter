@@ -13,7 +13,7 @@ import features
 import music
 
 
-def main(file_name):
+def main(file_name, length):
     """Make music for the give file path."""
     name, _ = os.path.splitext(os.path.basename(file_name))
     with open(file_name) as text_file:
@@ -21,8 +21,18 @@ def main(file_name):
     text = parse.parse_guttenburg(text)
 
     shift_counts = features.build_shift_map(words.iter_nouns(text), 2)
-    music.to_music(shift_counts, name)
+    music.to_music(shift_counts, name, length=length)
+
+
+def get_args():
+    """Oh hey, maybe I should use arg parse."""
+    file_name = sys.argv[1]
+    try:
+        length = sys.argv[2]
+    except IndexError:
+        length = 300
+    return file_name, length
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(*get_args())
