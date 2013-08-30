@@ -60,7 +60,7 @@ def record_shifts(shifts, prev_shift, cur_shift):
     shift_map = shifts.setdefault(prev_shift, {})
     try:
         shift_map[cur_shift] += 1
-    except IndexError:
+    except KeyError:
         shift_map[cur_shift] = 1
 
 
