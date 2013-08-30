@@ -1,4 +1,5 @@
 nltk
+numpy
 # not really requirements, but yeah
 ipython
 pylint
