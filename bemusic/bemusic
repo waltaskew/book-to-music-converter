@@ -4,8 +4,8 @@
 """Make music for the give file path."""
 
 
+import argparse
 import os.path
-import sys
 
 import parse
 import words
@@ -13,25 +13,40 @@ import features
 import music
 
 
-def main(file_name, length):
+def main(file_name, length, n_grams):
     """Make music for the give file path."""
     name, _ = os.path.splitext(os.path.basename(file_name))
     with open(file_name) as text_file:
         text = text_file.read()
     text = parse.parse_guttenburg(text)
 
-    shift_counts = features.build_shift_map(words.iter_nouns(text), 2)
+    shift_counts = features.build_shift_map(words.iter_nouns(text), n_grams)
     music.to_music(shift_counts, name, length=length)
 
 
 def get_args():
-    """Oh hey, maybe I should use arg parse."""
-    file_name = sys.argv[1]
-    try:
-        length = sys.argv[2]
-    except IndexError:
-        length = 300
-    return file_name, length
+    """Grab command line args."""
+    parser = argparse.ArgumentParser(
+            description=('Convert a text file into a midi using NLP '
+                'tom-foolery.  Creates a new file named after the '
+                'input file in the current directory.'))
+    parser.add_argument(
+            'input_file',
+            help='text file to convert to a midi')
+    parser.add_argument(
+            '-s', '--song-length',
+            type=int,
+            default=300,
+            help='how many beats long the output midi will be, defaults to 300')
+    parser.add_argument(
+            '-n', '--n-gram-length',
+            type=int,
+            help=('The size of the n-grams to be used when building a '
+                    'grammar, defaults to bigrams'),
+            default=2,
+            required=False)
+    args = parser.parse_args()
+    return args.input_file, args.song_length, args.n_gram_length
 
 
 if __name__ == '__main__':
