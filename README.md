@@ -48,6 +48,7 @@ of context in our probabilistic model.
 Requirements
 ------------
 https://code.google.com/p/midiutil/
+
 http://www.nltk.org
 
 Usage
@@ -55,10 +56,9 @@ Usage
 The 'bemusic' script in the 'bemusic' directory is the entry point for usage.
 
 ```
-cd bemusic
-./bemusic -h
-
+$ cd bemusic
 $ ./bemusic -h
+
 usage: bemusic [-h] [-s SONG_LENGTH] [-n N_GRAM_LENGTH] input_file
 
 Convert a text file into a midi using NLP tom-foolery. Creates a new file
