@@ -53,7 +53,8 @@ http://www.nltk.org
 
 You'll need to use the nltk.dowload utility to grab the NLTK corpora
 and models to use the library.
-You'll need the stop words and wordnet corpora and the punk model,
+You'll need the stop words and wordnet corpora and the punkt and treebank
+models,
 but go ahead and download them all -- nltk is a great library!
 
 ```
