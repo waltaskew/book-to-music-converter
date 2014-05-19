@@ -51,6 +51,17 @@ https://code.google.com/p/midiutil/
 
 http://www.nltk.org
 
+You'll need to use the nltk.dowload utility to grab the NLTK corpora
+to use the library.
+You'll need the stop words and wordnet corpora, but go ahead and download
+them all -- nltk is a great library!
+
+```
+$ python
+>>> import nltk
+>>> nltk.download()
+```
+
 Usage
 -----
 The 'bemusic' script in the 'bemusic' directory is the entry point for usage.
