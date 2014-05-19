@@ -78,4 +78,4 @@ optional arguments:
 ```
 The script produces a MIDI file with the same name as the text file given
 to the script.
-You can then use your favorit MIDI player to listen to your book!
+You can then use your favorite MIDI player to listen to your book!
