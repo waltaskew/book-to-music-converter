@@ -75,3 +75,7 @@ optional arguments:
   -n N_GRAM_LENGTH, --n-gram-length N_GRAM_LENGTH
                         The size of the n-grams to be used when building a
                         grammar, defaults to bigrams
+```
+The script produces a MIDI file with the same name as the text file given
+to the script.
+You can then use your favorit MIDI player to listen to your book!
